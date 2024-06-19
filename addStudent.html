@@ -90,9 +90,11 @@
     postForm.addEventListener('submit', postApiData => {
       event.preventDefault()
 
-      message.innerHTML = `<div class="spinner-border m-2" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>`
+      message.innerHTML =  `<div class="card bg-success-subtle mt-2">
+        <div class="text-center">
+        <div class="spinner-border mt-1" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div></div></div>`
       
       const appData = {
         name: name.value,
@@ -115,26 +117,26 @@
           .then(data => {
             console.log(data)
             if(data){
-              message.innerHTML = `<div class="text-success fw-bold">Student Data Added Successfully to the Bankend!</div>`
+              message.innerHTML = `<div class="card text-center bg-success-subtle py-1 mt-2"><div class='fw-bolder fs-4'>Student Data Added Successfully to the Bankend!</div></div>`
 
               clearMessage(2000)
               clearInputs() //clears all input fields.
               console.log(data)
 
             }else {
-              message.innerHTML = `<div class="text-danger fw-bold">There is an issue with the data from the backend side!</div>`
+              message.innerHTML = `<div class="card text-center bg-danger-subtle py-1 mt-2"><div class='fw-bolder fs-4'>Failed to Add Student to the BackEnd!</div></div>`
               clearInputs() //clears all input fields.
               
             }
             
           }).catch(e => {
-            message.innerHTML = `<div class="text-danger fw-bold">There seems to be an ERROR. Error Message: ${e.message}!</div>`
+            message.innerHTML = `<div class="card text-center bg-danger-subtle py-1 mt-2"><div class='fw-bolder fs-4'>There seems to be an ERROR. Error Message: ${e.message}!</div></div>`
             clearMessage(2000)
             clearInputs() //clears all input fields.
           })
         
       } else {
-         message.innerHTML = `<div class="text-danger fw-bold">Please Fill in All Fields!</div>`
+         message.innerHTML = `<div class="card text-center bg-danger-subtle py-1 mt-2"><div class='fw-bolder fs-4'>Please Fill All Fields to Proceed!</div></div>`
         clearMessage(1800)
       }
 
@@ -144,7 +146,7 @@
     const clearInputs = () => {
       name.value = ""
       age.value = ""
-      gender.value = ""
+      gender.value = "Male"
       grade.value = ""
       marks.value = ""
       attendance.value = ""
