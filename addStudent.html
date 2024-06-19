@@ -38,6 +38,124 @@
     </nav>
   </header>
 
+  <main class="container mt-2">
+
+    <div>
+      <h1>Add Student</h1>
+    </div>
+
+    <form id="postForm" class="mt-4">
+      <label class="form-label mt-2" for="name">Name:</label>
+      <input class="form-control" type="text" id="name">
+        
+
+      <label class="form-label mt-2" for="age">Age:</label>
+      <input class="form-control" type="number" id="age">
+
+      <label class="form-label mt-2" for="gender">Gender:</label>
+      <select class="form-select" type="number" id="gender">
+        <option value="Male" selected>Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label class="form-label mt-2" for="grade">Grade:</label>
+      <input class="form-control" type="text" id="grade">
+
+      <label class="form-label mt-2" for="marks">Marks:</label>
+      <input class="form-control" type="number" id="marks">
+
+      <label class="form-label mt-2" for="attendance">Attendance:</label>
+      <input class="form-control" type="number" id="attendance">
+
+      <div id="message"></div>
+
+      <button type="submit" class="btn btn-primary btn-sm mt-3 mb-5">Add Student</button>
+       
+    </form>
+    
+  </main>
+
+  <script>
+    const postForm = document.querySelector("#postForm")
+    const name = document.querySelector("#name")
+    const age = document.querySelector("#age")
+    const gender = document.querySelector("#gender")
+    const grade = document.querySelector("#grade")
+    const marks = document.querySelector("#marks")
+    const attendance = document.querySelector("#attendance")
+    const apiUrl = 'https://student-management-Student-neog.replit.app/students'
+    const message = document.querySelector("#message")
+
+    postForm.addEventListener('submit', fetchApiData => {
+      event.preventDefault()
+
+      message.innerHTML = `<div class="spinner-border m-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>`
+      
+
+      const appData = {
+        name: name.value,
+        age: age.value,
+        gender: gender.value,
+        grade: grade.value,
+        marks: marks.value,
+        attendance: attendance.value
+      }
+
+      if(appData.name !== "" && appData.age !== "" && appData.gender !== "" | appData.grade !== "" && appData.marks !== "" && appData.attendance !== ""){
+
+        fetch(apiUrl, {
+          method: 'POST',
+          body: JSON.stringify(appData),
+          headers: {
+          'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+          .then(data => {
+            if(data.length > 1){
+              message.innerHTML = `<div class="text-success fw-bold">Student Data Added Successfully to the Bankend!</div>`
+
+              clearMessage(2000)
+
+            }else {
+              message.innerHTML = `<div class="text-danger fw-bold">There is an issue with the data from the backend side!</div>`
+              clearMessage(1800)
+            }
+            
+          }).catch(e => {
+            message.innerHTML = `<div class="text-danger fw-bold">There seems to be an ERROR. Error Message: ${e.message}!</div>`
+            clearMessage(2000)
+          })
+        
+        
+      } else {
+         message.innerHTML = `<div class="text-danger fw-bold">Please Fill in All Fields!</div>`
+        clearMessage(1800)
+      }
+
+      clearInputs() //clears all input fields.
+    })
+
+    const clearInputs = () => {
+      name.value = ""
+      age.value = ""
+      gender.value = ""
+      grade.value = ""
+      marks.value = ""
+      attendance.value = ""
+    }
+
+    const clearMessage = (t) => {
+      setTimeout(()=> {
+        message.innerHTML = ""
+      }, t)
+    }
+    
+    
+  </script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js
 "></script>
