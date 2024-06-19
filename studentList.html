@@ -99,7 +99,7 @@
             
           }
         } else {
-          displayList.innerHTML = `<div class="card bg-success-subtle py-2 text-center"><div class='fw-bolder fs-4'>There is an Error in the Data</div></div>`
+          displayList.innerHTML = `<div class="card bg-success-subtle py-2 text-center"><div class='fw-bolder fs-4'>${data.length === 0 ? "Add More Students!" : "There was an Error in fetching Data!"}</div></div>`
         }
 
         const deleteBtn = document.querySelectorAll('#deleteBtn')
@@ -119,9 +119,9 @@
               .then(data => {
                 if(data){
                   console.log(data)
-                  successMessage.innerHTML = `<div class="card bg-success-subtle py-2"><div class='fw-bolder fs-4'>Student Detail was Deleted Successfully</div></div>`
+                  successMessage.innerHTML = `<div class="card bg-success-subtle py-2"><div class='fw-bold fs-4'>Student Detail was Deleted Successfully</div></div>`
                   clearMessage(2000)
-                  console.log("FIlter Gender value Inside delete fetch:: ",filterGender.value)
+                  // console.log("FIlter Gender value Inside delete fetch:: ",filterGender.value)
                   fetchApi(apiUrl, filterGender.value)
                 } else {
                   successMessage.innerHTML = `<div class="card bg-danger-subtle py-2"><div class='fw-bolder fs-4'>There was an Error in Deleting Data!</div></div>`
@@ -141,7 +141,7 @@
       
     }
 
-    console.log("FIlter Gender value:: ",filterGender.value)
+    // console.log("FIlter Gender value:: ",filterGender.value)
 
     filterGender.addEventListener("change", filterByGender => {
       if(filterGender.value !== "All"){
